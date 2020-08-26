@@ -1,10 +1,11 @@
 #include "BTInterface.h"
+#define BAUD_RATE 38400
 
 bt_interface bt_i = {4, "INIT", &Serial2};
 char in = ' ';
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(BAUD_RATE);
   initialise_interface(&bt_i);
 }
 

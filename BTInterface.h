@@ -1,6 +1,6 @@
 #pragma once
 #define BUFFER_SIZE 20
-#define BAUD_RATE 9600
+#define BAUD_RATE 38400
 
 typedef struct {
   char length;
