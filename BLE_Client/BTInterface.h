@@ -4,6 +4,15 @@
 
 typedef struct {
   char length;
+typedef enum { SUCCESS, FAILURE, OVERFLOW, TRANSMIT, NOP } comm_status;
+typedef enum { EASTRX, WESTRX, STARTRX, STOPRX, OPENRX, CLOSERX, EMERGENCYRX, NONERX } msg_rx;
+typedef enum { EASTTX, WESTTX, STARTTX, STOPTX, OPENTX, CLOSETX, EMERGENCYTX, NONETX } msg_tx;
+
+typedef struct {
+  char update;
+  char length;
+  msg_rx rx;
+  msg_tx tx;
   char msg[BUFFER_SIZE];
   HardwareSerial *ss;
 } bt_interface;

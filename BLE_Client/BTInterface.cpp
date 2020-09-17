@@ -1,17 +1,4 @@
-#pragma once
-#define BUFFER_SIZE 20
-#define BAUD_RATE 38400
-
-typedef struct {
-  char length;
-  char msg[BUFFER_SIZE];
-  HardwareSerial *ss;
-} bt_interface;
-
-typedef enum { SUCCESS, FAILURE, OVERFLOW, TRANSMIT, NOP } comm_status;
-comm_status initialise_interface(bt_interface *);
-comm_status transmit_frame(bt_interface *);
-comm_status build_frame(bt_interface *);
+#include "BTInterface.h"
 
 comm_status initialise_interface(bt_interface *frame) {
   frame->ss->begin(BAUD_RATE);
@@ -40,3 +27,18 @@ comm_status build_frame(bt_interface *frame, char c) {
   frame->length++;
   return SUCCESS;
 }
+
+/*
+ * Sends over a single char
+ */
+comm_status quick_transmit(bt_interface *frame, char c) {
+  frame->ss->write(c);
+  frame->ss->write("\n");
+  frame->length = 0;
+  return SUCCESS;
+}
+
+/*
+ * Resets the length of the frame to 0 so that messages can be sent again
+ */
+void reset_frame(bt_interface *frame) { frame->length = 0; }
