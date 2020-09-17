@@ -1,9 +1,11 @@
 #include "BTInterface.h"
+<<<<<<< Updated upstream
 #define BAUD_RATE 38400
 
 bt_interface bt_i = {4, "INIT", &Serial2};
 char in = ' ';
 char blue_in = ' ';
+=======
 #define BUFFER_SIZE 20
 #define BAUD_RATE 38400
 
