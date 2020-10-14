@@ -1,6 +1,6 @@
 #include "BTInterface.h"
 #define BUFFER_SIZE 20
-#define BAUD_RATE 38400
+#define BAUD_RATE 9600
 
 bt_interface bt_i = {4, "INIT", &Serial2};
 #include "Helpers.h"
@@ -8,10 +8,17 @@ comm_status comm_state = NOP;
 
 void setup() {
   Serial.begin(BAUD_RATE);
-  initialise_interface(&bt_i);
+  //initialise_interface(&bt_i);
+  Serial2.begin(BAUD_RATE);
+  pinMode(4,INPUT);
 }
 
 void loop() {
+  char in = ' ';
+  if(digitalRead(4)==HIGH){
+    send_doors_closed();
+  }
+  
   message blue_in = read_msg();
   print_message(blue_in);
 }
@@ -57,7 +64,7 @@ message read_msg(){
 void print_message(message msg) {
   switch(msg) {
    case NONE:
-    Serial.println("NONE");
+//    Serial.println("NONE");
     break;
    case EAST:
     Serial.println("EAST");
